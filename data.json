@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Environmental Portraits",
+        "price": "$50",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/2863006/pexels-photo-2863006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "details": "Environmental portraits show your subject in its natural environment, which adds a narrative element to your photos. Habitat images give viewers more information about your subject’s life and the environment in which it lives. They also give the subject and its surroundings a feeling of scale.Due to the absence of extreme focal length (400–600mm), you may discover that your chosen style of photography leans toward including more of the environment, or you may be confined to capture the full scene.",
+        "r1": "PhotoGrapher is well behaved",
+        "r2": "Great look",
+        "r3": "Nice style"
+    },
+    {
+        "name": "Full Body Portrait",
+        "price": "$30",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "details": "Whereas environmental portraits give you a sense of place, a full-body portrait isolates the subject from the rest of the world, focusing your attention entirely on the subject. A tight composition lets you to notice more details of your subject, such as the shape and size of this Harbor seal’s flippers, or the sausage shape of its body and the unique, identifiable pattern that adorns it, distinguishing it from other seals. When photographing full-body portraits, you should prefer to utilise a narrow depth of field to reduce background distractions.",
+        "r1": "Dangerous",
+        "r2": "Great look",
+        "r3": "Nice behaved"
+    },
+    {
+        "name": "Frame-filling Portraits",
+        "price": "$40",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/50988/ape-berber-monkeys-mammal-affchen-50988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "details": "Moving in even closer, cropping off much of the body, and focusing on your subject’s face gets you closer to feeling that eye-to-eye, soul-to-soul connection with your subject.  You get closer to your subject by being able to move in closer and observe such fine details (literally and figuratively).There’s something about a big, bold, in-your-face image that can’t help but entice you in.",
+        "r1": "Beautiful",
+        "r2": "Awesome",
+        "r3": "Fast"
+    },
+    {
+        "name": "Gesture",
+        "price": "$20",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/6057574/pexels-photo-6057574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "details": "A simple move brings your subject to life, enhancing the drama of your photos. When watching wildlife, being prepared and vigilant boosts your chances of capturing a fleeting moment.",
+        "r1": "Slow",
+        "r2": "Not good",
+        "r3": "Disrespectful"
+    },
+    {
+        "name": "Capture Behaviours",
+        "price": "$60",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/6057574/pexels-photo-6057574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "details": "I enjoy photographing portraits just as much as the next person, but to get a true sense of your subject, shoot behavioural images that reveal more about its personality and life. Everything your subject does, from eating to sleeping, wooing, mating, raising its young, and so on, is considered behaviour. The better you know your subject and how it behaves, the more likely you are to capture a key moment.",
+        "r1": "Slow",
+        "r2": "Not reliable",
+        "r3": "Responsive"
+    },
+    {
+        "name": "Combine package",
+        "price": "$100",
+        "duration": "1 Day",
+        "img": "https://images.pexels.com/photos/6057574/pexels-photo-6057574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "details": "No photo limit. Every kind of animal picture. 2 photographers 3 guides 1 geep. wooing, mating, raising its young, and so on, is considered behaviour. The better you know your subject and how it behaves, the more likely you are to capture a key moment.",
+        "r1": "Awesome",
+        "r2": "Enjoyable",
+        "r3": "Photographers and guides are so friendly"
+    }
+]
