@@ -61,6 +61,24 @@ async function run() {
             res.send(result);
         })
 
+        //get mane onnek gula user ase kin2 amr website e jei email diye login kora ase shudhu tar e review list dekhabe.
+
+        app.get('/reviews', async (req, res) => {
+            // const decoded = req.decoded;
+            let query = {}
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+
+            const cursor = reviewCollection.find(query);
+            const review = await cursor.toArray();
+            res.send(review)
+        })
+
+
+
 
     }
     finally {
