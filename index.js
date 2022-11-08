@@ -51,6 +51,14 @@ async function run() {
         })
 
 
+        app.post('/services', async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await serviceCollection.insertOne(user);
+            res.send(result);
+        })
+
+
 
         //review api
 
@@ -67,6 +75,7 @@ async function run() {
             // const decoded = req.decoded;
             let query = {}
             if (req.query.email) {
+                console.log(req.query.email);
                 query = {
                     email: req.query.email
                 }
@@ -75,6 +84,46 @@ async function run() {
             const cursor = reviewCollection.find(query);
             const review = await cursor.toArray();
             res.send(review)
+        })
+
+        //get mane onnek gula service ase kin2 ami jei service e dhukbo oi service er jnish potro dekhane
+
+
+        app.get('/reviewspecific', async (req, res) => {
+            // const decoded = req.decoded;
+            let query = {}
+            if (req.query.service) {
+                console.log(req.query.service);
+                query = {
+                    service: req.query.service
+                }
+            }
+
+            const cursor = reviewCollection.find(query);
+            const review = await cursor.toArray();
+            res.send(review)
+        })
+
+        app.delete('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await reviewCollection.deleteOne(query);
+            res.send(result);
+        })
+
+        //update specific data
+
+        app.patch('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status;
+            const query = { _id: ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    status: status
+                }
+            }
+            const result = await reviewCollection.updateOne(query, updateDoc);
+            res.send(result);
         })
 
 
