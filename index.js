@@ -86,11 +86,19 @@ async function run() {
             res.send(review)
         })
 
+
+        app.get('/reviews/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const user = await reviewCollection.findOne(query);
+            res.send(user)
+        })
+
         //get mane onnek gula service ase kin2 ami jei service e dhukbo oi service er jnish potro dekhane
 
 
         app.get('/reviewspecific', async (req, res) => {
-            // const decoded = req.decoded;
+
             let query = {}
             if (req.query.service) {
                 console.log(req.query.service);
@@ -104,6 +112,14 @@ async function run() {
             res.send(review)
         })
 
+
+
+        app.post('/reviewspecific', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
+
         app.delete('/reviews/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
@@ -113,13 +129,16 @@ async function run() {
 
         //update specific data
 
-        app.patch('/reviews/:id', async (req, res) => {
+        app.put('/reviews/:id', async (req, res) => {
             const id = req.params.id;
-            const status = req.body.status;
+            const user = req.body;
             const query = { _id: ObjectId(id) };
             const updateDoc = {
                 $set: {
-                    status: status
+                    service_title: user.service_title,
+                    email: user.email,
+                    user: user.user,
+                    review: user.review
                 }
             }
             const result = await reviewCollection.updateOne(query, updateDoc);
