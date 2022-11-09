@@ -33,8 +33,20 @@ async function run() {
 
     try {
 
-        //get all the data
+        //get 3 the data
+        app.get('/servicesThree', async (req, res) => {
+            const size = parseInt(3)
+            // console.log(size);
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.limit(size).toArray();
+            res.send(services);
+        })
+
+        //get 3 the data
         app.get('/services', async (req, res) => {
+            const size = parseInt(3)
+            // console.log(size);
             const query = {};
             const cursor = serviceCollection.find(query);
             const services = await cursor.toArray();
@@ -113,12 +125,14 @@ async function run() {
         })
 
 
+        //eita holo rewiew add korar jonnoo
+        // app.post('/reviewspecific', async (req, res) => {
+        //     const review = req.body;
+        //     const result = await reviewCollection.insertOne(review);
+        //     res.send(result);
+        // })
 
-        app.post('/reviewspecific', async (req, res) => {
-            const review = req.body;
-            const result = await reviewCollection.insertOne(review);
-            res.send(result);
-        })
+
 
         app.delete('/reviews/:id', async (req, res) => {
             const id = req.params.id;
@@ -127,7 +141,7 @@ async function run() {
             res.send(result);
         })
 
-        //update specific data
+        //update specific data of review
 
         app.put('/reviews/:id', async (req, res) => {
             const id = req.params.id;
@@ -138,12 +152,51 @@ async function run() {
                     service_title: user.service_title,
                     email: user.email,
                     user: user.user,
-                    review: user.review
+                    review: user.review,
+                    dateAdded: new Date()
                 }
             }
             const result = await reviewCollection.updateOne(query, updateDoc);
             res.send(result);
+
+
+
+
+            // const review = req.body;
+            // const result = await reviewCollection.insertOne(review);
+            // res.send(result);
+
+
+
+
+
         })
+        // app.put('/review', async (req, res) => {
+        //     // const id = req.params.id;
+        //     const user = req.body;
+        //     // const query = { _id: ObjectId(id) };
+        //     const updateDoc = {
+
+        //         // { upsert: true }
+        //     }
+        //     const result = await reviewCollection.updateOne(
+
+        //         {
+        //             $set: {
+        //                 service_title: user.service_title,
+        //                 email: user.email,
+        //                 user: user.user,
+        //                 review: user.review
+        //             },
+        //             $setOnInsert: { dateAdded: new Date() },
+
+        //         },
+
+        //         { upsert: true }
+
+        //     );
+        //     res.send(result);
+        // })
 
 
 

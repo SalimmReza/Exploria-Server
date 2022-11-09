@@ -1,6 +1,6 @@
 [
     {
-        "name": "Environmental Portraits",
+        "service_title": "Environmental Portraits",
         "price": "$50",
         "duration": "1 Day",
         "img": "https://images.pexels.com/photos/2863006/pexels-photo-2863006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -10,7 +10,7 @@
         "r3": "Nice style"
     },
     {
-        "name": "Full Body Portrait",
+        "service_title": "Full Body Portrait",
         "price": "$30",
         "duration": "1 Day",
         "img": "https://images.pexels.com/photos/247502/pexels-photo-247502.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -20,7 +20,7 @@
         "r3": "Nice behaved"
     },
     {
-        "name": "Frame-filling Portraits",
+        "service_title": "Frame-filling Portraits",
         "price": "$40",
         "duration": "1 Day",
         "img": "https://images.pexels.com/photos/50988/ape-berber-monkeys-mammal-affchen-50988.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -30,17 +30,17 @@
         "r3": "Fast"
     },
     {
-        "name": "Gesture",
+        "service_title": "Gesture",
         "price": "$20",
         "duration": "1 Day",
-        "img": "https://images.pexels.com/photos/6057574/pexels-photo-6057574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "img": "https://images.pexels.com/photos/572861/pexels-photo-572861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "details": "A simple move brings your subject to life, enhancing the drama of your photos. When watching wildlife, being prepared and vigilant boosts your chances of capturing a fleeting moment.",
         "r1": "Slow",
         "r2": "Not good",
         "r3": "Disrespectful"
     },
     {
-        "name": "Capture Behaviours",
+        "service_title": "Capture Behaviours",
         "price": "$60",
         "duration": "1 Day",
         "img": "https://images.pexels.com/photos/6057574/pexels-photo-6057574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -50,7 +50,7 @@
         "r3": "Responsive"
     },
     {
-        "name": "Combine package",
+        "service_title": "Combine package",
         "price": "$100",
         "duration": "1 Day",
         "img": "https://images.pexels.com/photos/9185432/pexels-photo-9185432.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
