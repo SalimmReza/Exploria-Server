@@ -18,13 +18,34 @@ app.use(cors());
 app.use(express.json())
 
 
-
-
-
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.b9snwll.mongodb.net/?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+
+
+const verifyJWT = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    console.log(authHeader)
+    if (!authHeader) {
+        return res.status(401).send({ message: 'unauthorized user' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    jwt.verify(token, process.env.ACCESS_TOKEN, function (err, decoded) {
+        if (err) {
+            return res.status(403).send({ message: 'unauthorized user' })
+        }
+        req.decoded = decoded;
+        next();
+    })
+
+}
+
+
+
+
+
 
 async function run() {
 
@@ -33,18 +54,40 @@ async function run() {
 
     try {
 
+        //jwt token
+
+        app.post('/jwt', (req, res) => {
+            const user = req.body;
+            // const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+            const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+            res.send({ token })
+
+        })
+
         //get 3 the data
-        app.get('/servicesThree', async (req, res) => {
+        app.get('/servicesThree', verifyJWT, async (req, res) => {
+            const decoded = req.decoded;
+            if (decoded.email !== req.query.email) {
+                return res.status(403).send({ message: 'cant access' })
+            }
+
             const size = parseInt(3)
             // console.log(size);
-            const query = {};
+            let query = {};
+
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+
             const cursor = serviceCollection.find(query);
             const services = await cursor.limit(size).toArray();
             res.send(services);
         })
 
         //get 3 the data
-        app.get('/services', async (req, res) => {
+        app.get('/services', verifyJWT, async (req, res) => {
             const size = parseInt(3)
             // console.log(size);
             const query = {};
@@ -63,7 +106,7 @@ async function run() {
         })
 
 
-        app.post('/services', async (req, res) => {
+        app.post('/services', verifyJWT, async (req, res) => {
             const user = req.body;
             console.log(user);
             const result = await serviceCollection.insertOne(user);
@@ -75,7 +118,7 @@ async function run() {
         //review api
 
         //entry review data in db
-        app.post('/reviews', async (req, res) => {
+        app.post('/reviews', verifyJWT, async (req, res) => {
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
             res.send(result);
@@ -83,7 +126,7 @@ async function run() {
 
         //get mane onnek gula user ase kin2 amr website e jei email diye login kora ase shudhu tar e review list dekhabe.
 
-        app.get('/reviews', async (req, res) => {
+        app.get('/reviews', verifyJWT, async (req, res) => {
             // const decoded = req.decoded;
             let query = {}
             if (req.query.email) {
@@ -109,9 +152,17 @@ async function run() {
         //get mane onnek gula service ase kin2 ami jei service e dhukbo oi service er jnish potro dekhane
 
 
-        app.get('/reviewspecific', async (req, res) => {
-
-            let query = {}
+        app.get('/reviewspecific', verifyJWT, async (req, res) => {
+            const decoded = req.decoded;
+            if (decoded.email !== req.query.email) {
+                return res.status(403).send({ message: 'cant access' })
+            }
+            let query = {};
+            if (req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
             if (req.query.service) {
                 console.log(req.query.service);
                 query = {
