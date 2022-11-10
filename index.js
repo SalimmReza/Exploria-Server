@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
@@ -24,23 +25,23 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 
 
-const verifyJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    console.log(authHeader)
-    if (!authHeader) {
-        return res.status(401).send({ message: 'unauthorized user' });
-    }
+// const verifyJWT = (req, res, next) => {
+//     const authHeader = req.headers.authorization;
+//     console.log("sads", authHeader)
+//     if (!authHeader) {
+//         return res.status(401).send({ message: 'unauthorized user' });
+//     }
 
-    const token = authHeader.split(' ')[1];
-    jwt.verify(token, process.env.ACCESS_TOKEN, function (err, decoded) {
-        if (err) {
-            return res.status(403).send({ message: 'unauthorized user' })
-        }
-        req.decoded = decoded;
-        next();
-    })
+//     const token = authHeader.split(' ')[1];
+//     jwt.verify(token, process.env.SECRET, function (err, decoded) {
+//         if (err) {
+//             return res.status(403).send({ message: 'unauthorized user' })
+//         }
+//         req.decoded = decoded;
+//         next();
+//     })
 
-}
+// }
 
 
 
@@ -54,40 +55,29 @@ async function run() {
 
     try {
 
-        //jwt token
+        // jwt token
 
-        app.post('/jwt', (req, res) => {
-            const user = req.body;
-            // const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
-            const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
-            res.send({ token })
+        // app.post('/jwt', (req, res) => {
+        //     const user = req.body;
+        //     // const token = jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: '1d' })
+        //     console.log(user);
+        //     const token = jwt.sign(user, process.env.SECRET, { expiresIn: '1d' })
+        //     res.send({ token })
 
-        })
+        // })
 
         //get 3 the data
-        app.get('/servicesThree', verifyJWT, async (req, res) => {
-            const decoded = req.decoded;
-            if (decoded.email !== req.query.email) {
-                return res.status(403).send({ message: 'cant access' })
-            }
-
+        app.get('/servicesThree', async (req, res) => {
             const size = parseInt(3)
             // console.log(size);
-            let query = {};
-
-            if (req.query.email) {
-                query = {
-                    email: req.query.email
-                }
-            }
-
+            const query = {};
             const cursor = serviceCollection.find(query);
             const services = await cursor.limit(size).toArray();
             res.send(services);
         })
 
         //get 3 the data
-        app.get('/services', verifyJWT, async (req, res) => {
+        app.get('/services', async (req, res) => {
             const size = parseInt(3)
             // console.log(size);
             const query = {};
@@ -106,9 +96,9 @@ async function run() {
         })
 
 
-        app.post('/services', verifyJWT, async (req, res) => {
+        app.post('/services', async (req, res) => {
             const user = req.body;
-            console.log(user);
+            console.log("dsd", user);
             const result = await serviceCollection.insertOne(user);
             res.send(result);
         })
@@ -118,7 +108,7 @@ async function run() {
         //review api
 
         //entry review data in db
-        app.post('/reviews', verifyJWT, async (req, res) => {
+        app.post('/reviews', async (req, res) => {
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
             res.send(result);
@@ -126,9 +116,13 @@ async function run() {
 
         //get mane onnek gula user ase kin2 amr website e jei email diye login kora ase shudhu tar e review list dekhabe.
 
-        app.get('/reviews', verifyJWT, async (req, res) => {
+        app.get('/reviews', async (req, res) => {
+            // console.log(req.header);
             // const decoded = req.decoded;
-            let query = {}
+            // if (decoded.email !== req.query.email) {
+            //     return res.status(403).send({ message: 'cant access' })
+            // }
+            // let query = {}
             if (req.query.email) {
                 console.log(req.query.email);
                 query = {
@@ -152,24 +146,22 @@ async function run() {
         //get mane onnek gula service ase kin2 ami jei service e dhukbo oi service er jnish potro dekhane
 
 
-        app.get('/reviewspecific', verifyJWT, async (req, res) => {
-            const decoded = req.decoded;
-            if (decoded.email !== req.query.email) {
-                return res.status(403).send({ message: 'cant access' })
-            }
-            let query = {};
-            if (req.query.email) {
-                query = {
-                    email: req.query.email
-                }
-            }
+        app.get('/reviewspecific', async (req, res) => {
+
+            // const decoded = req.decoded;
+            // console.log('inside orders', decoded);
+            // if (decoded.email !== req.query.email) {
+            //     return res.status(403).send({ message: 'cant access' })
+            // }
+
+
+            // let query = {};
             if (req.query.service) {
                 console.log(req.query.service);
                 query = {
                     service: req.query.service
                 }
             }
-
             const cursor = reviewCollection.find(query);
             const review = await cursor.toArray();
             res.send(review)
@@ -177,11 +169,11 @@ async function run() {
 
 
         //eita holo rewiew add korar jonnoo
-        // app.post('/reviewspecific', async (req, res) => {
-        //     const review = req.body;
-        //     const result = await reviewCollection.insertOne(review);
-        //     res.send(result);
-        // })
+        app.post('/reviewspecific', async (req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
 
 
 
